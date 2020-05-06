@@ -42,6 +42,10 @@
     "source-map-support": "^0.5.16"
   },
   "dependencies": {
+    "@aws-cdk/aws-iam": "^1.37.0",
+    "@aws-cdk/aws-lambda": "^1.37.0",
+    "@aws-cdk/aws-stepfunctions": "^1.37.0",
+    "@aws-cdk/aws-stepfunctions-tasks": "^1.37.0",
     "@aws-cdk/core": "1.37.0"
   },
   "keywords": [
@@ -57,7 +61,11 @@
   },
   "peerDependencies": {
     "@aws-cdk/core": "1.37.0",
-    "constructs": "*"
+    "constructs": "*",
+    "@aws-cdk/aws-iam": "^1.37.0",
+    "@aws-cdk/aws-lambda": "^1.37.0",
+    "@aws-cdk/aws-stepfunctions": "^1.37.0",
+    "@aws-cdk/aws-stepfunctions-tasks": "^1.37.0"
   },
   "license": "MIT"
 }
