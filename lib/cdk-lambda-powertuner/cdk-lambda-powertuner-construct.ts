@@ -25,22 +25,8 @@ export class LambdaPowerTuner extends cdk.Construct {
             visualizationURL: config.visualizationURL ?? 'https://lambda-power-tuning.show/'
         }
 
-        let AWSLambdaExecuteRole = new iam.Role(scope, 'DefaultLambdaHanderRole', {
-            assumedBy: new iam.ServicePrincipal('lambda.amazonaws.com'),
-            managedPolicies: [
-                iam.ManagedPolicy.fromAwsManagedPolicyName('service-role/AWSLambdaExecute'),
-            ],
-        })
-
         // Initializer
-        let initializer = new lambda.Function(scope, 'initializer', {
-            runtime: lambda.Runtime.NODEJS_12_X,
-            role: AWSLambdaExecuteRole,
-            memorySize: 128,
-            code: lambda.Code.asset('../../powertuner_clone/lambda'),
-            handler: 'initializer.handler',
-            environment: shared_env
-        });
+        let initializer = this.createLambda(scope, 'initializer', 'initializer.handler', shared_env);
 
         let lambdaConfigPermissions = new iam.PolicyStatement({
             effect: iam.Effect.ALLOW,
@@ -56,14 +42,8 @@ export class LambdaPowerTuner extends cdk.Construct {
 
 
         // Executor
-        let executor = new lambda.Function(scope, 'executor', {
-            runtime: lambda.Runtime.NODEJS_12_X,
-            role: AWSLambdaExecuteRole,
-            memorySize: 128,
-            code: lambda.Code.asset('../../powertuner_clone/lambda'),
-            handler: 'executor.handler',
-            environment: shared_env
-        });
+        let executor = this.createLambda(scope, 'executor', 'executor.handler', shared_env);
+
         executor.addToRolePolicy(new iam.PolicyStatement({
             effect: iam.Effect.ALLOW,
             resources: [config.lambdaResource],
@@ -71,15 +51,7 @@ export class LambdaPowerTuner extends cdk.Construct {
         }));
 
         // Cleaner
-        let cleaner = new lambda.Function(scope, 'cleaner', {
-            runtime: lambda.Runtime.NODEJS_12_X,
-            role: AWSLambdaExecuteRole,
-            timeout: cdk.Duration.seconds(10),
-            memorySize: 128,
-            code: lambda.Code.asset('../../powertuner_clone/lambda'),
-            handler: 'cleaner.handler',
-            environment: shared_env
-        });
+        let cleaner = this.createLambda(scope, 'cleaner', 'cleaner.handler', shared_env);
 
         cleaner.addToRolePolicy(new iam.PolicyStatement({
             effect: iam.Effect.ALLOW,
@@ -90,26 +62,10 @@ export class LambdaPowerTuner extends cdk.Construct {
         }));
 
         // Analyzer
-        let analyzer = new lambda.Function(scope, 'cleaner', {
-            runtime: lambda.Runtime.NODEJS_12_X,
-            role: AWSLambdaExecuteRole,
-            timeout: cdk.Duration.seconds(10),
-            memorySize: 128,
-            code: lambda.Code.asset('../../powertuner_clone/lambda'),
-            handler: 'analyzer.handler',
-            environment: shared_env
-        });
+        let analyzer = this.createLambda(scope, 'analyzer', 'analyzer.handler', shared_env, 10);
 
         // Optimizer
-        let optimizer = new lambda.Function(scope, 'optimizer', {
-            runtime: lambda.Runtime.NODEJS_12_X,
-            role: AWSLambdaExecuteRole,
-            timeout: cdk.Duration.seconds(10),
-            memorySize: 128,
-            code: lambda.Code.asset('../../powertuner_clone/lambda'),
-            handler: 'optimizer.handler',
-            environment: shared_env
-        });
+        let optimizer = this.createLambda(scope, 'optimizer', 'optimizer.handler', shared_env);
 
         optimizer.addToRolePolicy(new iam.PolicyStatement({
             effect: iam.Effect.ALLOW,
@@ -121,6 +77,10 @@ export class LambdaPowerTuner extends cdk.Construct {
                         'lambda:UpdateAlias'
                     ]
         }));
+
+        /**
+         * State Machine
+         */
 
         let statemachineRole = new iam.Role(scope, 'statemachineRole', {
             assumedBy: new iam.ServicePrincipal('lambda.amazonaws.com'),
@@ -206,4 +166,32 @@ export class LambdaPowerTuner extends cdk.Construct {
             value: stateMachine.stateMachineArn
         })
     }
+
+    /**
+     * All the lambdas have the same config, so this method saves typing
+     * @param scope 
+     * @param id 
+     * @param handler 
+     * @param env 
+     * @param timeout 
+     */
+    createLambda(scope:cdk.Construct, id:string, handler:string, env: any, timeout?:number){
+        let AWSLambdaExecuteRole = new iam.Role(scope, 'DefaultLambdaHanderRole', {
+            assumedBy: new iam.ServicePrincipal('lambda.amazonaws.com'),
+            managedPolicies: [
+                iam.ManagedPolicy.fromAwsManagedPolicyName('service-role/AWSLambdaExecute'),
+            ],
+        })
+    
+        return new lambda.Function(scope, id, {
+          runtime: lambda.Runtime.NODEJS_12_X,
+          role: AWSLambdaExecuteRole,
+          timeout: cdk.Duration.seconds(timeout ?? 300),
+          memorySize: 128,
+          code: lambda.Code.asset('../../powertuner_clone/lambda'),
+          handler:handler,
+          environment: env
+        });
+
+      }
 }
