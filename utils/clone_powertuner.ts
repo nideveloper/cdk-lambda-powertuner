@@ -15,3 +15,5 @@ export default class ClonePowerTuner {
         execSync('git pull origin master', {'cwd': this.directory});
     }
 }
+
+new ClonePowerTuner().refresh_cloned_code();

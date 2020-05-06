@@ -8,7 +8,8 @@
     "access": "public"
   },
   "scripts": {
-    "build": "jsii",
+    "clone_powertuner": "tsc && node utils/clone_powertuner.js",
+    "build": "npm run clone_powertuner && jsii",
     "package": "jsii-pacmak",
     "watch": "tsc -w",
     "test": "tsc && jest",
