@@ -1,0 +1,62 @@
+{
+  "name": "cdk-lambda-powertuner",
+  "version": "0.1.0",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/",
+    "access": "public"
+  },
+  "scripts": {
+    "build": "jsii",
+    "package": "jsii-pacmak",
+    "watch": "tsc -w",
+    "test": "tsc && jest",
+    "cdk": "cdk"
+  },
+  "jsii": {
+    "outdir": "dist",
+    "targets": {
+      "python": {
+        "distName": "cdk-lambda-powertuner",
+        "module": "lambda_powertuner"
+      }
+    }
+  },
+  "awscdkio": {
+    "twitter": "nideveloper"
+  },
+  "devDependencies": {
+    "fs-extra": "^9.0.0",
+    "@aws-cdk/assert": "1.37.0",
+    "@types/jest": "^25.2.1",
+    "@types/node": "10.17.5",
+    "aws-cdk": "1.37.0",
+    "jest": "^25.5.0",
+    "jsii": "^1.4.1",
+    "jsii-pacmak": "^1.4.1",
+    "ts-jest": "^25.3.1",
+    "ts-node": "^8.1.0",
+    "typescript": "~3.7.2",
+    "source-map-support": "^0.5.16"
+  },
+  "dependencies": {
+    "@aws-cdk/core": "1.37.0"
+  },
+  "keywords": [
+    "aws",
+    "cdk",
+    "lambda",
+    "powertuner"
+  ],
+  "author": "hello@cdkpatterns.com",
+  "repository": {
+    "url": "https://github.com/nideveloper/cdk-lambda-powertuner.git",
+    "type": "git"
+  },
+  "peerDependencies": {
+    "@aws-cdk/core": "1.37.0",
+    "constructs": "*"
+  },
+  "license": "MIT"
+}

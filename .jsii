@@ -1,0 +1,170 @@
+{
+  "author": {
+    "name": "hello@cdkpatterns.com",
+    "roles": [
+      "author"
+    ]
+  },
+  "dependencies": {
+    "@aws-cdk/core": "1.37.0",
+    "constructs": "*"
+  },
+  "dependencyClosure": {
+    "@aws-cdk/cloud-assembly-schema": {
+      "targets": {
+        "dotnet": {
+          "assemblyOriginatorKeyFile": "../../key.snk",
+          "iconUrl": "https://raw.githubusercontent.com/aws/aws-cdk/master/logo/default-256-dark.png",
+          "namespace": "Amazon.CDK.CloudAssembly.Schema",
+          "packageId": "Amazon.CDK.CloudAssembly.Schema",
+          "signAssembly": true
+        },
+        "java": {
+          "maven": {
+            "artifactId": "cdk-cloud-assembly-schema",
+            "groupId": "software.amazon.awscdk"
+          },
+          "package": "software.amazon.awscdk.cloudassembly.schema"
+        },
+        "js": {
+          "npm": "@aws-cdk/cloud-assembly-schema"
+        },
+        "python": {
+          "distName": "aws-cdk.cloud-assembly-schema",
+          "module": "aws_cdk.cloud_assembly_schema"
+        }
+      }
+    },
+    "@aws-cdk/core": {
+      "targets": {
+        "dotnet": {
+          "assemblyOriginatorKeyFile": "../../key.snk",
+          "iconUrl": "https://raw.githubusercontent.com/aws/aws-cdk/master/logo/default-256-dark.png",
+          "namespace": "Amazon.CDK",
+          "packageId": "Amazon.CDK",
+          "signAssembly": true
+        },
+        "java": {
+          "maven": {
+            "artifactId": "core",
+            "groupId": "software.amazon.awscdk"
+          },
+          "package": "software.amazon.awscdk.core"
+        },
+        "js": {
+          "npm": "@aws-cdk/core"
+        },
+        "python": {
+          "distName": "aws-cdk.core",
+          "module": "aws_cdk.core"
+        }
+      }
+    },
+    "@aws-cdk/cx-api": {
+      "targets": {
+        "dotnet": {
+          "assemblyOriginatorKeyFile": "../../key.snk",
+          "iconUrl": "https://raw.githubusercontent.com/aws/aws-cdk/master/logo/default-256-dark.png",
+          "namespace": "Amazon.CDK.CXAPI",
+          "packageId": "Amazon.CDK.CXAPI",
+          "signAssembly": true
+        },
+        "java": {
+          "maven": {
+            "artifactId": "cdk-cx-api",
+            "groupId": "software.amazon.awscdk"
+          },
+          "package": "software.amazon.awscdk.cxapi"
+        },
+        "js": {
+          "npm": "@aws-cdk/cx-api"
+        },
+        "python": {
+          "distName": "aws-cdk.cx-api",
+          "module": "aws_cdk.cx_api"
+        }
+      }
+    },
+    "constructs": {
+      "targets": {
+        "dotnet": {
+          "namespace": "Constructs",
+          "packageId": "Constructs"
+        },
+        "java": {
+          "maven": {
+            "artifactId": "constructs",
+            "groupId": "software.constructs"
+          },
+          "package": "software.constructs"
+        },
+        "js": {
+          "npm": "constructs"
+        },
+        "python": {
+          "distName": "constructs",
+          "module": "constructs"
+        }
+      }
+    }
+  },
+  "description": "cdk-lambda-powertuner",
+  "homepage": "https://github.com/nideveloper/cdk-lambda-powertuner.git",
+  "jsiiVersion": "1.4.1 (build 0b09d7b)",
+  "keywords": [
+    "aws",
+    "cdk",
+    "lambda",
+    "powertuner"
+  ],
+  "license": "MIT",
+  "name": "cdk-lambda-powertuner",
+  "readme": {
+    "markdown": "# Welcome to your CDK TypeScript project!\n\nThis is a blank project for TypeScript development with CDK.\n\nThe `cdk.json` file tells the CDK Toolkit how to execute your app.\n\n## Useful commands\n\n * `npm run build`   compile typescript to js\n * `npm run watch`   watch for changes and compile\n * `npm run test`    perform the jest unit tests\n * `cdk deploy`      deploy this stack to your default AWS account/region\n * `cdk diff`        compare deployed stack with current state\n * `cdk synth`       emits the synthesized CloudFormation template\n"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nideveloper/cdk-lambda-powertuner.git"
+  },
+  "schema": "jsii/0.10.0",
+  "targets": {
+    "js": {
+      "npm": "cdk-lambda-powertuner"
+    },
+    "python": {
+      "distName": "cdk-lambda-powertuner",
+      "module": "lambda_powertuner"
+    }
+  },
+  "types": {
+    "cdk-lambda-powertuner.LambdaPowerTuner": {
+      "assembly": "cdk-lambda-powertuner",
+      "base": "@aws-cdk/core.Construct",
+      "fqn": "cdk-lambda-powertuner.LambdaPowerTuner",
+      "initializer": {
+        "parameters": [
+          {
+            "name": "scope",
+            "type": {
+              "fqn": "@aws-cdk/core.Construct"
+            }
+          },
+          {
+            "name": "id",
+            "type": {
+              "primitive": "string"
+            }
+          }
+        ]
+      },
+      "kind": "class",
+      "locationInModule": {
+        "filename": "lib/cdk-lambda-powertuner/cdk-lambda-powertuner-construct.ts",
+        "line": 4
+      },
+      "name": "LambdaPowerTuner"
+    }
+  },
+  "version": "0.1.0",
+  "fingerprint": "MqRjAtQsmITbqinSg7IAtTyN+DYSPQxdx4JoCuFr2kk="
+}
