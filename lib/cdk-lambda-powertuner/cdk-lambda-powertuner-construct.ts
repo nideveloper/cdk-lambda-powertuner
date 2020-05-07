@@ -167,7 +167,7 @@ export class LambdaPowerTuner extends cdk.Construct {
         .next(cleanupAnalyzer)
         .next(optimizerTask)
 
-        const stateMachine = new sfn.StateMachine(this, 'BookingSaga', {
+        const stateMachine = new sfn.StateMachine(this, 'LambdaPowerTuner', {
             definition,
             role: statemachineRole
         });
