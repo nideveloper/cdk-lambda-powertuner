@@ -1,14 +1,31 @@
-# Welcome to your CDK TypeScript project!
+# CDK Lambda Power Tuner
 
-This is a blank project for TypeScript development with CDK.
+This is simply a CDK wrapper for [aws-lambda-power-tuning](https://github.com/alexcasalboni/aws-lambda-power-tuning)
 
-The `cdk.json` file tells the CDK Toolkit how to execute your app.
+>Note this is an alpha module, it needs thoroughly tested before being production recommended
 
-## Useful commands
+All of the lambda logic is cloned on build from that source repo with only the stepfunction definition being defined in this project.
 
- * `npm run build`   compile typescript to js
- * `npm run watch`   watch for changes and compile
- * `npm run test`    perform the jest unit tests
- * `cdk deploy`      deploy this stack to your default AWS account/region
- * `cdk diff`        compare deployed stack with current state
- * `cdk synth`       emits the synthesized CloudFormation template
+This enables you to now do this:
+
+```typescript
+// Create our lambda
+const testLambda = new lambda.Function(this, 'lambdaHandler', {
+    runtime: lambda.Runtime.NODEJS_12_X,
+    code: lambda.Code.asset('lambda'),
+    handler: 'lambda.handler'
+});
+
+// All permissions on this tuner will be scoped to the above lambda function
+new LambdaPowerTuner(this, 'powerTuner', {
+    lambdaResource: testLambda.functionArn
+})
+```
+
+## Deploying the state machine
+Import it into any CDK stack and then `cdk deploy`
+
+
+## Running The Tuner
+
+
