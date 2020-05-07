@@ -117,7 +117,7 @@ export class LambdaPowerTuner extends cdk.Construct {
             maxConcurrency: 0,
             
         }).addCatch(CleanUpOnError, {
-            resultPath: "$.error"
+            resultPath: "$.error",
         });
 
         branching.iterator(new sfn.Task(scope, 'Iterator', {
