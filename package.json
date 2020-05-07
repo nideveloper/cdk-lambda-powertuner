@@ -17,6 +17,7 @@
   },
   "jsii": {
     "outdir": "dist",
+    "versionFormat": "short",
     "targets": {
       "python": {
         "distName": "cdk-lambda-powertuner",
@@ -34,8 +35,8 @@
     "@types/node": "10.17.5",
     "aws-cdk": "1.37.0",
     "jest": "^25.5.0",
-    "jsii": "^1.4.1",
-    "jsii-pacmak": "^1.4.1",
+    "jsii": "^1.5.0",
+    "jsii-pacmak": "^1.5.0",
     "ts-jest": "^25.3.1",
     "ts-node": "^8.1.0",
     "typescript": "~3.7.2",
@@ -46,7 +47,15 @@
     "@aws-cdk/aws-lambda": "^1.37.0",
     "@aws-cdk/aws-stepfunctions": "^1.37.0",
     "@aws-cdk/aws-stepfunctions-tasks": "^1.37.0",
-    "@aws-cdk/core": "1.37.0"
+    "@aws-cdk/core": "^1.37.0"
+  },
+  "peerDependencies": {
+    "@aws-cdk/core": "^1.37.0",
+    "constructs": "*",
+    "@aws-cdk/aws-iam": "^1.37.0",
+    "@aws-cdk/aws-lambda": "^1.37.0",
+    "@aws-cdk/aws-stepfunctions": "^1.37.0",
+    "@aws-cdk/aws-stepfunctions-tasks": "^1.37.0"
   },
   "keywords": [
     "aws",
@@ -54,18 +63,11 @@
     "lambda",
     "powertuner"
   ],
+  "stability": "experimental",
   "author": "hello@cdkpatterns.com",
   "repository": {
     "url": "https://github.com/nideveloper/cdk-lambda-powertuner.git",
     "type": "git"
-  },
-  "peerDependencies": {
-    "@aws-cdk/core": "1.37.0",
-    "constructs": "*",
-    "@aws-cdk/aws-iam": "^1.37.0",
-    "@aws-cdk/aws-lambda": "^1.37.0",
-    "@aws-cdk/aws-stepfunctions": "^1.37.0",
-    "@aws-cdk/aws-stepfunctions-tasks": "^1.37.0"
   },
   "license": "Apache-2.0"
 }

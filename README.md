@@ -8,19 +8,7 @@ All of the lambda logic is cloned on build from that source repo with only the s
 
 This enables you to now do this:
 
-```typescript
-// Create our lambda
-const testLambda = new lambda.Function(this, 'lambdaHandler', {
-    runtime: lambda.Runtime.NODEJS_12_X,
-    code: lambda.Code.asset('lambda'),
-    handler: 'lambda.handler'
-});
-
-// All permissions on this tuner will be scoped to the above lambda function
-new LambdaPowerTuner(this, 'powerTuner', {
-    lambdaResource: testLambda.functionArn
-})
-```
+![snippet](https://raw.githubusercontent.com/nideveloper/cdk-lambda-powertuner/master/img/snippet.png)
 
 ## Deploying the state machine
 Import it into any CDK stack and then `cdk deploy`

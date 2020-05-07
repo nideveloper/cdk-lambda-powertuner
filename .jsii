@@ -10,7 +10,7 @@
     "@aws-cdk/aws-lambda": "^1.37.0",
     "@aws-cdk/aws-stepfunctions": "^1.37.0",
     "@aws-cdk/aws-stepfunctions-tasks": "^1.37.0",
-    "@aws-cdk/core": "1.37.0",
+    "@aws-cdk/core": "^1.37.0",
     "constructs": "*"
   },
   "dependencyClosure": {
@@ -1088,18 +1088,21 @@
     }
   },
   "description": "cdk-lambda-powertuner",
+  "docs": {
+    "stability": "experimental"
+  },
   "homepage": "https://github.com/nideveloper/cdk-lambda-powertuner.git",
-  "jsiiVersion": "1.4.1 (build 0b09d7b)",
+  "jsiiVersion": "1.5.0",
   "keywords": [
     "aws",
     "cdk",
     "lambda",
     "powertuner"
   ],
-  "license": "MIT",
+  "license": "Apache-2.0",
   "name": "cdk-lambda-powertuner",
   "readme": {
-    "markdown": "# Welcome to your CDK TypeScript project!\n\nThis is a blank project for TypeScript development with CDK.\n\nThe `cdk.json` file tells the CDK Toolkit how to execute your app.\n\n## Useful commands\n\n * `npm run build`   compile typescript to js\n * `npm run watch`   watch for changes and compile\n * `npm run test`    perform the jest unit tests\n * `cdk deploy`      deploy this stack to your default AWS account/region\n * `cdk diff`        compare deployed stack with current state\n * `cdk synth`       emits the synthesized CloudFormation template\n"
+    "markdown": "# CDK Lambda Power Tuner\n\nThis is simply a CDK wrapper for the SAM/SAR application - [aws-lambda-power-tuning](https://github.com/alexcasalboni/aws-lambda-power-tuning)\n\n>Note this is an alpha module, it needs thoroughly tested before being production recommended\n\nAll of the lambda logic is cloned on build from that source repo with only the stepfunction definition being defined in this project.\n\nThis enables you to now do this:\n\n![snippet](https://raw.githubusercontent.com/nideveloper/cdk-lambda-powertuner/master/img/snippet.png)\n\n## Deploying the state machine\nImport it into any CDK stack and then `cdk deploy`\n\n\n## Running The Tuner\nThis is the same as [here](https://github.com/alexcasalboni/aws-lambda-power-tuning#how-to-execute-the-state-machine-web-console)\n\n"
   },
   "repository": {
     "type": "git",
@@ -1119,8 +1122,14 @@
     "cdk-lambda-powertuner.LambdaPowerTuner": {
       "assembly": "cdk-lambda-powertuner",
       "base": "@aws-cdk/core.Construct",
+      "docs": {
+        "stability": "experimental"
+      },
       "fqn": "cdk-lambda-powertuner.LambdaPowerTuner",
       "initializer": {
+        "docs": {
+          "stability": "experimental"
+        },
         "parameters": [
           {
             "name": "scope",
@@ -1145,27 +1154,84 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/cdk-lambda-powertuner/cdk-lambda-powertuner-construct.ts",
-        "line": 13
+        "line": 14
       },
+      "methods": [
+        {
+          "docs": {
+            "stability": "experimental",
+            "summary": "All the lambdas have the same config, so this method saves typing."
+          },
+          "locationInModule": {
+            "filename": "lib/cdk-lambda-powertuner/cdk-lambda-powertuner-construct.ts",
+            "line": 188
+          },
+          "name": "createLambda",
+          "parameters": [
+            {
+              "name": "scope",
+              "type": {
+                "fqn": "@aws-cdk/core.Construct"
+              }
+            },
+            {
+              "name": "id",
+              "type": {
+                "primitive": "string"
+              }
+            },
+            {
+              "name": "handler",
+              "type": {
+                "primitive": "string"
+              }
+            },
+            {
+              "name": "env",
+              "type": {
+                "primitive": "any"
+              }
+            },
+            {
+              "name": "timeout",
+              "optional": true,
+              "type": {
+                "primitive": "number"
+              }
+            }
+          ],
+          "returns": {
+            "type": {
+              "fqn": "@aws-cdk/aws-lambda.Function"
+            }
+          }
+        }
+      ],
       "name": "LambdaPowerTuner"
     },
     "cdk-lambda-powertuner.LambdaPowerTunerConfig": {
       "assembly": "cdk-lambda-powertuner",
       "datatype": true,
+      "docs": {
+        "stability": "experimental"
+      },
       "fqn": "cdk-lambda-powertuner.LambdaPowerTunerConfig",
       "kind": "interface",
       "locationInModule": {
         "filename": "lib/cdk-lambda-powertuner/cdk-lambda-powertuner-construct.ts",
-        "line": 7
+        "line": 8
       },
       "name": "LambdaPowerTunerConfig",
       "properties": [
         {
           "abstract": true,
+          "docs": {
+            "stability": "experimental"
+          },
           "immutable": true,
           "locationInModule": {
             "filename": "lib/cdk-lambda-powertuner/cdk-lambda-powertuner-construct.ts",
-            "line": 8
+            "line": 9
           },
           "name": "lambdaResource",
           "type": {
@@ -1174,10 +1240,13 @@
         },
         {
           "abstract": true,
+          "docs": {
+            "stability": "experimental"
+          },
           "immutable": true,
           "locationInModule": {
             "filename": "lib/cdk-lambda-powertuner/cdk-lambda-powertuner-construct.ts",
-            "line": 9
+            "line": 10
           },
           "name": "powerValues",
           "optional": true,
@@ -1192,10 +1261,13 @@
         },
         {
           "abstract": true,
+          "docs": {
+            "stability": "experimental"
+          },
           "immutable": true,
           "locationInModule": {
             "filename": "lib/cdk-lambda-powertuner/cdk-lambda-powertuner-construct.ts",
-            "line": 10
+            "line": 11
           },
           "name": "visualizationURL",
           "optional": true,
@@ -1207,5 +1279,5 @@
     }
   },
   "version": "0.1.0",
-  "fingerprint": "hHlB1BdrdrOSi5dYlCc4O1kTKo18Kryr4HyaIepePB0="
+  "fingerprint": "Oj1IRppoOSTJ9G9sG3LEcCaG4b/PXeiOcfbrEj1p4Lo="
 }
