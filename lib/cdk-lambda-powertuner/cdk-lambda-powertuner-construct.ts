@@ -12,8 +12,6 @@ export interface LambdaPowerTunerConfig {
 
 export class LambdaPowerTuner extends cdk.Construct {
 
-    private lambdaExecutionRole:iam.Role;
-
     constructor(scope: cdk.Construct, id:string, config:LambdaPowerTunerConfig){
         super(scope, id);
 
@@ -26,13 +24,6 @@ export class LambdaPowerTuner extends cdk.Construct {
             baseCosts: '{"ap-east-1":2.865e-7,"af-south-1":2.763e-7,"me-south-1":2.583e-7,"eu-south-1":2.440e-7,"default":2.083e-7}',
             visualizationURL: config.visualizationURL ?? 'https://lambda-power-tuning.show/'
         }
-
-        this.lambdaExecutionRole = new iam.Role(scope, 'DefaultLambdaHanderRole', {
-            assumedBy: new iam.ServicePrincipal('lambda.amazonaws.com'),
-            managedPolicies: [
-                iam.ManagedPolicy.fromAwsManagedPolicyName('service-role/AWSLambdaExecute'),
-            ],
-        })
 
         // Initializer
         let initializer = this.createLambda(scope, 'initializer', 'initializer.handler', shared_env);
@@ -186,9 +177,16 @@ export class LambdaPowerTuner extends cdk.Construct {
      */
     createLambda(scope:cdk.Construct, id:string, handler:string, env: any, timeout?:number){
 
+        let role =  new iam.Role(scope, `${id}LambdaExecuteRole`, {
+            assumedBy: new iam.ServicePrincipal('lambda.amazonaws.com'),
+            managedPolicies: [
+                iam.ManagedPolicy.fromAwsManagedPolicyName('service-role/AWSLambdaExecute'),
+            ],
+        })
+        
         return new lambda.Function(scope, id, {
           runtime: lambda.Runtime.NODEJS_12_X,
-          role: this.lambdaExecutionRole,
+          role: role,
           timeout: cdk.Duration.seconds(timeout ?? 300),
           memorySize: 128,
           code: lambda.Code.asset('powertuner_clone/lambda'),

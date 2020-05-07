@@ -126,3 +126,49 @@ test('optimizer Lambda Created', () => {
     "Timeout": 300
   }));
 });
+
+test('State Machine Created', () => {
+  const app = new cdk.App();
+  // WHEN
+  const stack = new cdk.Stack(app, 'MyTestStack');
+
+  new LambdaPowerTuner(stack, 'powerTuner', {
+    lambdaResource: 'arn:1234:1234:1234:1234:1234'
+  })
+  // THEN
+  expectCDK(stack).to(haveResourceLike("AWS::StepFunctions::StateMachine", {
+    "DefinitionString": {
+      "Fn::Join": [
+        "",
+        [
+          "{\"StartAt\":\"Initializer\",\"States\":{\"Initializer\":{\"Next\":\"Branching\",\"Catch\":[{\"ErrorEquals\":[\"States.ALL\"],\"ResultPath\":\"$.error\",\"Next\":\"CleanUpOnError\"}],\"Parameters\":{\"FunctionName\":\"",
+          {},
+          "\",\"Payload.$\":\"$\"},\"Type\":\"Task\",\"Resource\":\"arn:",
+          {},
+          ":states:::lambda:invoke\",\"ResultPath\":\"$.powerValues\"},\"Branching\":{\"Type\":\"Map\",\"ResultPath\":\"$.stats\",\"Next\":\"Cleaner\",\"Parameters\":{\"value.$\":\"$$.Map.Item.Value\",\"lambdaARN.$\":\"$.lambdaARN\",\"num.$\":\"$.num\",\"payload.$\":\"$.payload\",\"parallelInvocation.$\":\"$.parallelInvocation\"},\"Catch\":[{\"ErrorEquals\":[\"States.ALL\"],\"ResultPath\":\"$.error\",\"Next\":\"CleanUpOnError\"}],\"Iterator\":{\"StartAt\":\"Iterator\",\"States\":{\"Iterator\":{\"End\":true,\"Retry\":[{\"ErrorEquals\":[\"States.ALL\"],\"IntervalSeconds\":3,\"MaxAttempts\":2}],\"Parameters\":{\"FunctionName\":\"",
+          {},
+          "\",\"Payload.$\":\"$\"},\"Type\":\"Task\",\"Resource\":\"arn:",
+          {},
+          ":states:::lambda:invoke\"}}},\"ItemsPath\":\"$.powerValues\",\"MaxConcurrency\":0},\"Cleaner\":{\"Next\":\"Analyzer\",\"Parameters\":{\"FunctionName\":\"",
+          {},
+          "\",\"Payload.$\":\"$\"},\"Type\":\"Task\",\"Resource\":\"arn:",
+          {},
+          ":states:::lambda:invoke\"},\"Analyzer\":{\"Next\":\"Optimizer\",\"Parameters\":{\"FunctionName\":\"",
+          {},
+          "\",\"Payload.$\":\"$\"},\"Type\":\"Task\",\"Resource\":\"arn:",
+          {},
+          ":states:::lambda:invoke\",\"ResultPath\":\"$.analysis\"},\"Optimizer\":{\"End\":true,\"Parameters\":{\"FunctionName\":\"",
+          {},
+          "\",\"Payload.$\":\"$\"},\"OutputPath\":\"$.analysis\",\"Type\":\"Task\",\"Resource\":\"arn:",
+          {},
+          ":states:::lambda:invoke\"},\"CleanUpOnError\":{\"End\":true,\"Parameters\":{\"FunctionName\":\"",
+          {},
+          "\",\"Payload.$\":\"$\"},\"Type\":\"Task\",\"Resource\":\"arn:",
+          {},
+          ":states:::lambda:invoke\"}}}"
+        ]
+      ]
+    }
+  }
+  ));
+});
