@@ -27,3 +27,5 @@ This means that the payloads coming back from the Lambda functions contain an ex
 
 To make this work without rewriting the Lambda functions so that I can always pull the latest code on every build I
 had to introduce adapters between the step function Lambda tasks to strip out this abstraction layer. This is their only purpose
+
+![stepfunction flow](https://raw.githubusercontent.com/nideveloper/cdk-lambda-powertuner/master/img/stepfunctions_graph.png)
