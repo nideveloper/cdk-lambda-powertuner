@@ -6,19 +6,24 @@ import tasks = require('@aws-cdk/aws-stepfunctions-tasks');
 import path = require('path');
 
 export interface LambdaPowerTunerConfig {
-    readonly lambdaResource:string;
-    readonly powerValues?: number[]
+    readonly lambdaResource: string;
+    readonly powerValues?: number[],
+    readonly stepFunctionName?: string,
+    readonly exportStepFunction?: boolean,
+    readonly exportedStepFunctionName?: string,
     readonly visualizationURL?: string;
 }
 
 export class LambdaPowerTuner extends cdk.Construct {
 
-    constructor(scope: cdk.Construct, id:string, config:LambdaPowerTunerConfig){
+    stateMachineArn?: string;
+
+    constructor(scope: cdk.Construct, id: string, config: LambdaPowerTunerConfig) {
         super(scope, id);
 
-        let powerValues = config.powerValues ?? [128,256,512,1024,1536,3008]
+        let powerValues = config.powerValues ?? [128, 256, 512, 1024, 1536, 3008]
         const REGION = process.env.CDK_DEFAULT_REGION ?? 'us-east-1';
-        
+
         let shared_env = {
             defaultPowerValues: powerValues.join(','),
             minRAM: '128',
@@ -33,13 +38,13 @@ export class LambdaPowerTuner extends cdk.Construct {
             effect: iam.Effect.ALLOW,
             resources: [config.lambdaResource],
             actions: ['lambda:GetAlias',
-                        'lambda:GetFunctionConfiguration',
-                        'lambda:PublishVersion',
-                        'lambda:UpdateFunctionConfiguration',
-                        'lambda:CreateAlias',
-                        'lambda:UpdateAlias']
-          });
-          initializer.addToRolePolicy(lambdaConfigPermissions)
+                'lambda:GetFunctionConfiguration',
+                'lambda:PublishVersion',
+                'lambda:UpdateFunctionConfiguration',
+                'lambda:CreateAlias',
+                'lambda:UpdateAlias']
+        });
+        initializer.addToRolePolicy(lambdaConfigPermissions)
 
 
         // Executor
@@ -58,8 +63,8 @@ export class LambdaPowerTuner extends cdk.Construct {
             effect: iam.Effect.ALLOW,
             resources: [config.lambdaResource],
             actions: ['lambda:GetAlias',
-                        'lambda:DeleteAlias',
-                        'lambda:DeleteFunction']
+                'lambda:DeleteAlias',
+                'lambda:DeleteFunction']
         }));
 
         // Analyzer
@@ -72,11 +77,11 @@ export class LambdaPowerTuner extends cdk.Construct {
             effect: iam.Effect.ALLOW,
             resources: [config.lambdaResource],
             actions: ['lambda:GetAlias',
-                        'lambda:PublishVersion',
-                        'lambda:UpdateFunctionConfiguration',
-                        'lambda:CreateAlias',
-                        'lambda:UpdateAlias'
-                    ]
+                'lambda:PublishVersion',
+                'lambda:UpdateFunctionConfiguration',
+                'lambda:CreateAlias',
+                'lambda:UpdateAlias'
+            ]
         }));
 
         /**
@@ -96,7 +101,7 @@ export class LambdaPowerTuner extends cdk.Construct {
 
         const branching = new sfn.Map(this, 'Branching', {
             itemsPath: sfn.Data.stringAt("$.powerValues"),
-            resultPath: "$.stats", 
+            resultPath: "$.stats",
             parameters: {
                 "value.$": "$$.Map.Item.Value",
                 "lambdaARN.$": "$.lambdaARN",
@@ -105,34 +110,34 @@ export class LambdaPowerTuner extends cdk.Construct {
                 "parallelInvocation.$": "$.parallelInvocation"
             },
             maxConcurrency: 0,
-            
+
         }).addCatch(CleanUpOnError, {
             resultPath: "$.error",
         });
 
         branching.iterator(new sfn.Task(this, 'Iterator', {
-                task: new tasks.RunLambdaTask(executor)
-            }).addRetry({
-                maxAttempts: 2,
-                interval: cdk.Duration.seconds(3)
-            })
+            task: new tasks.RunLambdaTask(executor)
+        }).addRetry({
+            maxAttempts: 2,
+            interval: cdk.Duration.seconds(3)
+        })
         );
 
         const initializerTask = new sfn.Task(this, 'Initializer', {
             task: new tasks.RunLambdaTask(initializer),
             resultPath: "$.powerValues"
-          }).addCatch(CleanUpOnError, {
+        }).addCatch(CleanUpOnError, {
             resultPath: "$.error"
         });
-        
+
         const cleanupPowerValues = new sfn.Pass(this, 'cleanup $.powerValues', {
-          inputPath: '$.powerValues.Payload',
-          resultPath: '$.powerValues',
+            inputPath: '$.powerValues.Payload',
+            resultPath: '$.powerValues',
         });
-        
+
         const cleanupStats = new sfn.Pass(this, 'cleanup $.stats array', {
-          inputPath:'$.stats[*].Payload',
-          resultPath: '$.stats',
+            inputPath: '$.stats[*].Payload',
+            resultPath: '$.stats',
         });
 
         const cleanerTask = new sfn.Task(this, 'Cleaner', {
@@ -144,10 +149,10 @@ export class LambdaPowerTuner extends cdk.Construct {
             task: new tasks.RunLambdaTask(analyzer),
             resultPath: "$.analysis"
         });
-        
+
         const cleanupAnalyzer = new sfn.Pass(this, 'cleanup $.analysis', {
-          inputPath:'$.analysis.Payload',
-          resultPath: '$.analysis',
+            inputPath: '$.analysis.Payload',
+            resultPath: '$.analysis',
         });
 
         const optimizerTask = new sfn.Task(this, 'Optimizer', {
@@ -158,23 +163,32 @@ export class LambdaPowerTuner extends cdk.Construct {
 
         //Step function definition
         const definition = sfn.Chain
-        .start(initializerTask)
-        .next(cleanupPowerValues)
-        .next(branching)
-        .next(cleanupStats)
-        .next(cleanerTask)
-        .next(analyzerTask)
-        .next(cleanupAnalyzer)
-        .next(optimizerTask)
+            .start(initializerTask)
+            .next(cleanupPowerValues)
+            .next(branching)
+            .next(cleanupStats)
+            .next(cleanerTask)
+            .next(analyzerTask)
+            .next(cleanupAnalyzer)
+            .next(optimizerTask)
 
         const stateMachine = new sfn.StateMachine(this, 'LambdaPowerTuner', {
             definition,
             role: statemachineRole
         });
-        
-        new cdk.CfnOutput(this, 'StateMachineARN', {
+
+        this.stateMachineArn = stateMachine.stateMachineArn;
+
+        let cfnOutputConfig: any = {
+            description: 'Arn of Tuner State Machine',
             value: stateMachine.stateMachineArn
-        })
+        };
+
+        if (config.exportStepFunction === true && config.exportedStepFunctionName) {
+            cfnOutputConfig.exportName = config.exportedStepFunctionName;
+        }
+
+        new cdk.CfnOutput(this, 'StateMachineARN', cfnOutputConfig);
     }
 
     /**
@@ -185,24 +199,24 @@ export class LambdaPowerTuner extends cdk.Construct {
      * @param env 
      * @param timeout 
      */
-    createLambda(scope:cdk.Construct, id:string, handler:string, env: any, timeout?:number){
+    createLambda(scope: cdk.Construct, id: string, handler: string, env: any, timeout?: number) {
 
-        let role =  new iam.Role(scope, `${id}LambdaExecuteRole`, {
+        let role = new iam.Role(scope, `${id}LambdaExecuteRole`, {
             assumedBy: new iam.ServicePrincipal('lambda.amazonaws.com'),
             managedPolicies: [
                 iam.ManagedPolicy.fromAwsManagedPolicyName('AWSLambdaExecute'),
             ],
         })
-        
+
         return new lambda.Function(scope, id, {
-          runtime: lambda.Runtime.NODEJS_12_X,
-          role: role,
-          timeout: cdk.Duration.seconds(timeout ?? 300),
-          memorySize: 128,
-          code: lambda.Code.asset(path.join(__dirname, '../../powertuner_clone/lambda')),
-          handler:handler,
-          environment: env
+            runtime: lambda.Runtime.NODEJS_12_X,
+            role: role,
+            timeout: cdk.Duration.seconds(timeout ?? 300),
+            memorySize: 128,
+            code: lambda.Code.asset(path.join(__dirname, '../../powertuner_clone/lambda')),
+            handler: handler,
+            environment: env
         });
 
-      }
+    }
 }
