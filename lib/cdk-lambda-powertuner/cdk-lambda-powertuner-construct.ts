@@ -16,7 +16,7 @@ export interface LambdaPowerTunerConfig {
 
 export class LambdaPowerTuner extends cdk.Construct {
 
-    stateMachineArn?: string;
+    stateMachine?: sfn.StateMachine;
 
     constructor(scope: cdk.Construct, id: string, config: LambdaPowerTunerConfig) {
         super(scope, id);
@@ -177,7 +177,7 @@ export class LambdaPowerTuner extends cdk.Construct {
             role: statemachineRole
         });
 
-        this.stateMachineArn = stateMachine.stateMachineArn;
+        this.stateMachine = stateMachine;
 
         let cfnOutputConfig: any = {
             description: 'Arn of Tuner State Machine',
