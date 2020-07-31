@@ -1,6 +1,6 @@
 {
   "name": "cdk-lambda-powertuner",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "publishConfig": {
@@ -25,12 +25,9 @@
       }
     }
   },
-  "awscdkio": {
-    "twitter": "nideveloper"
-  },
   "devDependencies": {
     "fs-extra": "^9.0.0",
-    "@aws-cdk/assert": "1.37.0",
+    "@aws-cdk/assert": "^1.37.0",
     "@types/jest": "^25.2.1",
     "@types/node": "10.17.5",
     "aws-cdk": "1.37.0",
@@ -59,7 +56,6 @@
   },
   "keywords": [
     "aws",
-    "cdk",
     "lambda",
     "powertuner"
   ],

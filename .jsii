@@ -289,6 +289,31 @@
         }
       }
     },
+    "@aws-cdk/aws-codeguruprofiler": {
+      "targets": {
+        "dotnet": {
+          "assemblyOriginatorKeyFile": "../../key.snk",
+          "iconUrl": "https://raw.githubusercontent.com/aws/aws-cdk/master/logo/default-256-dark.png",
+          "namespace": "Amazon.CDK.AWS.CodeGuruProfiler",
+          "packageId": "Amazon.CDK.AWS.CodeGuruProfiler",
+          "signAssembly": true
+        },
+        "java": {
+          "maven": {
+            "artifactId": "codeguruprofiler",
+            "groupId": "software.amazon.awscdk"
+          },
+          "package": "software.amazon.awscdk.services.codeguruprofiler"
+        },
+        "js": {
+          "npm": "@aws-cdk/aws-codeguruprofiler"
+        },
+        "python": {
+          "distName": "aws-cdk.aws-codeguruprofiler",
+          "module": "aws_cdk.aws_codeguruprofiler"
+        }
+      }
+    },
     "@aws-cdk/aws-cognito": {
       "targets": {
         "dotnet": {
@@ -311,6 +336,31 @@
         "python": {
           "distName": "aws-cdk.aws-cognito",
           "module": "aws_cdk.aws_cognito"
+        }
+      }
+    },
+    "@aws-cdk/aws-dynamodb": {
+      "targets": {
+        "dotnet": {
+          "assemblyOriginatorKeyFile": "../../key.snk",
+          "iconUrl": "https://raw.githubusercontent.com/aws/aws-cdk/master/logo/default-256-dark.png",
+          "namespace": "Amazon.CDK.AWS.DynamoDB",
+          "packageId": "Amazon.CDK.AWS.DynamoDB",
+          "signAssembly": true
+        },
+        "java": {
+          "maven": {
+            "artifactId": "dynamodb",
+            "groupId": "software.amazon.awscdk"
+          },
+          "package": "software.amazon.awscdk.services.dynamodb"
+        },
+        "js": {
+          "npm": "@aws-cdk/aws-dynamodb"
+        },
+        "python": {
+          "distName": "aws-cdk.aws-dynamodb",
+          "module": "aws_cdk.aws_dynamodb"
         }
       }
     },
@@ -411,6 +461,31 @@
         "python": {
           "distName": "aws-cdk.aws-ecs",
           "module": "aws_cdk.aws_ecs"
+        }
+      }
+    },
+    "@aws-cdk/aws-efs": {
+      "targets": {
+        "dotnet": {
+          "assemblyOriginatorKeyFile": "../../key.snk",
+          "iconUrl": "https://raw.githubusercontent.com/aws/aws-cdk/master/logo/default-256-dark.png",
+          "namespace": "Amazon.CDK.AWS.EFS",
+          "packageId": "Amazon.CDK.AWS.EFS",
+          "signAssembly": true
+        },
+        "java": {
+          "maven": {
+            "artifactId": "efs",
+            "groupId": "software.amazon.awscdk"
+          },
+          "package": "software.amazon.awscdk.services.efs"
+        },
+        "js": {
+          "npm": "@aws-cdk/aws-efs"
+        },
+        "python": {
+          "distName": "aws-cdk.aws-efs",
+          "module": "aws_cdk.aws_efs"
         }
       }
     },
@@ -1092,10 +1167,9 @@
     "stability": "experimental"
   },
   "homepage": "https://github.com/nideveloper/cdk-lambda-powertuner.git",
-  "jsiiVersion": "1.5.0",
+  "jsiiVersion": "1.9.0",
   "keywords": [
     "aws",
-    "cdk",
     "lambda",
     "powertuner"
   ],
@@ -1154,7 +1228,7 @@
       "kind": "class",
       "locationInModule": {
         "filename": "lib/cdk-lambda-powertuner/cdk-lambda-powertuner-construct.ts",
-        "line": 14
+        "line": 17
       },
       "methods": [
         {
@@ -1164,7 +1238,7 @@
           },
           "locationInModule": {
             "filename": "lib/cdk-lambda-powertuner/cdk-lambda-powertuner-construct.ts",
-            "line": 188
+            "line": 202
           },
           "name": "createLambda",
           "parameters": [
@@ -1207,7 +1281,23 @@
           }
         }
       ],
-      "name": "LambdaPowerTuner"
+      "name": "LambdaPowerTuner",
+      "properties": [
+        {
+          "docs": {
+            "stability": "experimental"
+          },
+          "locationInModule": {
+            "filename": "lib/cdk-lambda-powertuner/cdk-lambda-powertuner-construct.ts",
+            "line": 19
+          },
+          "name": "stateMachineArn",
+          "optional": true,
+          "type": {
+            "primitive": "string"
+          }
+        }
+      ]
     },
     "cdk-lambda-powertuner.LambdaPowerTunerConfig": {
       "assembly": "cdk-lambda-powertuner",
@@ -1246,6 +1336,38 @@
           "immutable": true,
           "locationInModule": {
             "filename": "lib/cdk-lambda-powertuner/cdk-lambda-powertuner-construct.ts",
+            "line": 13
+          },
+          "name": "exportedStepFunctionName",
+          "optional": true,
+          "type": {
+            "primitive": "string"
+          }
+        },
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "experimental"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/cdk-lambda-powertuner/cdk-lambda-powertuner-construct.ts",
+            "line": 12
+          },
+          "name": "exportStepFunction",
+          "optional": true,
+          "type": {
+            "primitive": "boolean"
+          }
+        },
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "experimental"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/cdk-lambda-powertuner/cdk-lambda-powertuner-construct.ts",
             "line": 10
           },
           "name": "powerValues",
@@ -1269,6 +1391,22 @@
             "filename": "lib/cdk-lambda-powertuner/cdk-lambda-powertuner-construct.ts",
             "line": 11
           },
+          "name": "stepFunctionName",
+          "optional": true,
+          "type": {
+            "primitive": "string"
+          }
+        },
+        {
+          "abstract": true,
+          "docs": {
+            "stability": "experimental"
+          },
+          "immutable": true,
+          "locationInModule": {
+            "filename": "lib/cdk-lambda-powertuner/cdk-lambda-powertuner-construct.ts",
+            "line": 14
+          },
           "name": "visualizationURL",
           "optional": true,
           "type": {
@@ -1278,6 +1416,6 @@
       ]
     }
   },
-  "version": "0.2.0",
-  "fingerprint": "77jCrbauCJu8LKDQLSHweblqN6NiGnS6mOJ2vuwa9z4="
+  "version": "0.2.1",
+  "fingerprint": "HsGWJ+0ZaiB/eLtcYPZHgfJ7xuhv6hyCghamAxIu+OM="
 }
