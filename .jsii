@@ -1291,10 +1291,10 @@
             "filename": "lib/cdk-lambda-powertuner/cdk-lambda-powertuner-construct.ts",
             "line": 19
           },
-          "name": "stateMachineArn",
+          "name": "stateMachine",
           "optional": true,
           "type": {
-            "primitive": "string"
+            "fqn": "@aws-cdk/aws-stepfunctions.StateMachine"
           }
         }
       ]
@@ -1416,6 +1416,6 @@
       ]
     }
   },
-  "version": "0.2.1",
-  "fingerprint": "HsGWJ+0ZaiB/eLtcYPZHgfJ7xuhv6hyCghamAxIu+OM="
+  "version": "0.2.2",
+  "fingerprint": "eqQT4S84NqDCshpTtzoHEsBhv1bmjanS3oXr/arh0dc="
 }
