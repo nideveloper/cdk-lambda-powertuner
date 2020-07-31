@@ -174,7 +174,7 @@ test('State Machine Created', () => {
 });
 
 test('State Machine Arn Export Output Not Enabled', () => {
-  const exportName = '';
+  const exportName = 'export-test-name';
   const app = new cdk.App();
   // WHEN
   const stack = new cdk.Stack(app, 'MyTestStack');
@@ -190,7 +190,7 @@ test('State Machine Arn Export Output Not Enabled', () => {
 });
 
 test('State Machine Arn Export Output Enabled With No Name', () => {
-  const exportName = '';
+  const exportName = 'export-test-name';
   const app = new cdk.App();
   // WHEN
   const stack = new cdk.Stack(app, 'MyTestStack');
