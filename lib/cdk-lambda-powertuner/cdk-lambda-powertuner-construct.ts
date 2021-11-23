@@ -27,7 +27,10 @@ export class LambdaPowerTuner extends cdk.Construct {
         let shared_env = {
             defaultPowerValues: powerValues.join(','),
             minRAM: '128',
-            baseCosts: '{"ap-east-1":2.865e-7,"af-south-1":2.763e-7,"me-south-1":2.583e-7,"eu-south-1":2.440e-7,"default":2.083e-7}',
+            baseCosts:
+              '{"x86_64": {"ap-east-1":2.9e-9,"af-south-1":2.8e-9,"me-south-1":2.6e-9,"eu-south-1":2.4e-9,"ap-northeast-3":2.7e-9,"default":2.1e-9}, "arm64": {"default":1.7e-9}}',
+            sfCosts:
+              '{"default": 0.000025,"us-gov-west-1": 0.00003,"ap-northeast-2": 0.0000271,"eu-south-1": 0.00002625,"af-south-1": 0.00002975,"us-west-1": 0.0000279,"eu-west-3": 0.0000297,"ap-east-1": 0.0000275,"me-south-1": 0.0000275,"ap-south-1": 0.0000285,"us-gov-east-1": 0.00003,"sa-east-1": 0.0000375}',
             visualizationURL: config.visualizationURL ?? 'https://lambda-power-tuning.show/'
         }
 
@@ -53,7 +56,7 @@ export class LambdaPowerTuner extends cdk.Construct {
         executor.addToRolePolicy(new iam.PolicyStatement({
             effect: iam.Effect.ALLOW,
             resources: [config.lambdaResource],
-            actions: ['lambda:InvokeFunction']
+            actions: ['lambda:InvokeFunction', 'lambda:GetFunctionConfiguration']
         }));
 
         // Cleaner
@@ -106,6 +109,7 @@ export class LambdaPowerTuner extends cdk.Construct {
                 "value.$": "$$.Map.Item.Value",
                 "lambdaARN.$": "$.lambdaARN",
                 "num.$": "$.num",
+                'input.$': '$',
                 "payload.$": "$.payload",
                 "parallelInvocation.$": "$.parallelInvocation"
             },
@@ -193,11 +197,11 @@ export class LambdaPowerTuner extends cdk.Construct {
 
     /**
      * All the lambdas have the same config, so this method saves typing
-     * @param scope 
-     * @param id 
-     * @param handler 
-     * @param env 
-     * @param timeout 
+     * @param scope
+     * @param id
+     * @param handler
+     * @param env
+     * @param timeout
      */
     createLambda(scope: cdk.Construct, id: string, handler: string, env: any, timeout?: number) {
 

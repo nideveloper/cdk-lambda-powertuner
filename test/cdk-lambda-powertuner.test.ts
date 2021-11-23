@@ -18,7 +18,8 @@ test('initializer Lambda Created', () => {
       "Variables": {
         "defaultPowerValues": "128,256,512,1024,1536,3008",
         "minRAM": "128",
-        "baseCosts": "{\"ap-east-1\":2.865e-7,\"af-south-1\":2.763e-7,\"me-south-1\":2.583e-7,\"eu-south-1\":2.440e-7,\"default\":2.083e-7}",
+        "baseCosts": '{"x86_64": {"ap-east-1":2.9e-9,"af-south-1":2.8e-9,"me-south-1":2.6e-9,"eu-south-1":2.4e-9,"ap-northeast-3":2.7e-9,"default":2.1e-9}, "arm64": {"default":1.7e-9}}',
+        "sfCosts": '{"default": 0.000025,"us-gov-west-1": 0.00003,"ap-northeast-2": 0.0000271,"eu-south-1": 0.00002625,"af-south-1": 0.00002975,"us-west-1": 0.0000279,"eu-west-3": 0.0000297,"ap-east-1": 0.0000275,"me-south-1": 0.0000275,"ap-south-1": 0.0000285,"us-gov-east-1": 0.00003,"sa-east-1": 0.0000375}',
         "visualizationURL": "https://lambda-power-tuning.show/"
       }
     },
@@ -43,7 +44,8 @@ test('executor Lambda Created', () => {
       "Variables": {
         "defaultPowerValues": "128,256,512,1024,1536,3008",
         "minRAM": "128",
-        "baseCosts": "{\"ap-east-1\":2.865e-7,\"af-south-1\":2.763e-7,\"me-south-1\":2.583e-7,\"eu-south-1\":2.440e-7,\"default\":2.083e-7}",
+        "baseCosts": "{\"x86_64\": {\"ap-east-1\":2.9e-9,\"af-south-1\":2.8e-9,\"me-south-1\":2.6e-9,\"eu-south-1\":2.4e-9,\"ap-northeast-3\":2.7e-9,\"default\":2.1e-9}, \"arm64\": {\"default\":1.7e-9}}",
+        "sfCosts": "{\"default\": 0.000025,\"us-gov-west-1\": 0.00003,\"ap-northeast-2\": 0.0000271,\"eu-south-1\": 0.00002625,\"af-south-1\": 0.00002975,\"us-west-1\": 0.0000279,\"eu-west-3\": 0.0000297,\"ap-east-1\": 0.0000275,\"me-south-1\": 0.0000275,\"ap-south-1\": 0.0000285,\"us-gov-east-1\": 0.00003,\"sa-east-1\": 0.0000375}",
         "visualizationURL": "https://lambda-power-tuning.show/"
       }
     },
@@ -68,7 +70,8 @@ test('cleaner Lambda Created', () => {
       "Variables": {
         "defaultPowerValues": "128,256,512,1024,1536,3008",
         "minRAM": "128",
-        "baseCosts": "{\"ap-east-1\":2.865e-7,\"af-south-1\":2.763e-7,\"me-south-1\":2.583e-7,\"eu-south-1\":2.440e-7,\"default\":2.083e-7}",
+        "baseCosts": "{\"x86_64\": {\"ap-east-1\":2.9e-9,\"af-south-1\":2.8e-9,\"me-south-1\":2.6e-9,\"eu-south-1\":2.4e-9,\"ap-northeast-3\":2.7e-9,\"default\":2.1e-9}, \"arm64\": {\"default\":1.7e-9}}",
+        "sfCosts": "{\"default\": 0.000025,\"us-gov-west-1\": 0.00003,\"ap-northeast-2\": 0.0000271,\"eu-south-1\": 0.00002625,\"af-south-1\": 0.00002975,\"us-west-1\": 0.0000279,\"eu-west-3\": 0.0000297,\"ap-east-1\": 0.0000275,\"me-south-1\": 0.0000275,\"ap-south-1\": 0.0000285,\"us-gov-east-1\": 0.00003,\"sa-east-1\": 0.0000375}",
         "visualizationURL": "https://lambda-power-tuning.show/"
       }
     },
@@ -93,7 +96,8 @@ test('analyzer Lambda Created', () => {
       "Variables": {
         "defaultPowerValues": "128,256,512,1024,1536,3008",
         "minRAM": "128",
-        "baseCosts": "{\"ap-east-1\":2.865e-7,\"af-south-1\":2.763e-7,\"me-south-1\":2.583e-7,\"eu-south-1\":2.440e-7,\"default\":2.083e-7}",
+        "baseCosts": "{\"x86_64\": {\"ap-east-1\":2.9e-9,\"af-south-1\":2.8e-9,\"me-south-1\":2.6e-9,\"eu-south-1\":2.4e-9,\"ap-northeast-3\":2.7e-9,\"default\":2.1e-9}, \"arm64\": {\"default\":1.7e-9}}",
+        "sfCosts": "{\"default\": 0.000025,\"us-gov-west-1\": 0.00003,\"ap-northeast-2\": 0.0000271,\"eu-south-1\": 0.00002625,\"af-south-1\": 0.00002975,\"us-west-1\": 0.0000279,\"eu-west-3\": 0.0000297,\"ap-east-1\": 0.0000275,\"me-south-1\": 0.0000275,\"ap-south-1\": 0.0000285,\"us-gov-east-1\": 0.00003,\"sa-east-1\": 0.0000375}",
         "visualizationURL": "https://lambda-power-tuning.show/"
       }
     },
@@ -118,7 +122,8 @@ test('optimizer Lambda Created', () => {
       "Variables": {
         "defaultPowerValues": "128,256,512,1024,1536,3008",
         "minRAM": "128",
-        "baseCosts": "{\"ap-east-1\":2.865e-7,\"af-south-1\":2.763e-7,\"me-south-1\":2.583e-7,\"eu-south-1\":2.440e-7,\"default\":2.083e-7}",
+        "baseCosts": "{\"x86_64\": {\"ap-east-1\":2.9e-9,\"af-south-1\":2.8e-9,\"me-south-1\":2.6e-9,\"eu-south-1\":2.4e-9,\"ap-northeast-3\":2.7e-9,\"default\":2.1e-9}, \"arm64\": {\"default\":1.7e-9}}",
+        "sfCosts": "{\"default\": 0.000025,\"us-gov-west-1\": 0.00003,\"ap-northeast-2\": 0.0000271,\"eu-south-1\": 0.00002625,\"af-south-1\": 0.00002975,\"us-west-1\": 0.0000279,\"eu-west-3\": 0.0000297,\"ap-east-1\": 0.0000275,\"me-south-1\": 0.0000275,\"ap-south-1\": 0.0000285,\"us-gov-east-1\": 0.00003,\"sa-east-1\": 0.0000375}",
         "visualizationURL": "https://lambda-power-tuning.show/"
       }
     },
@@ -137,35 +142,59 @@ test('State Machine Created', () => {
   })
   // THEN
   expectCDK(stack).to(haveResourceLike("AWS::StepFunctions::StateMachine", {
-    "DefinitionString": {
-      "Fn::Join": [
-        "",
-        [
-          "{\"StartAt\":\"Initializer\",\"States\":{\"Initializer\":{\"Next\":\"cleanup $.powerValues\",\"Catch\":[{\"ErrorEquals\":[\"States.ALL\"],\"ResultPath\":\"$.error\",\"Next\":\"CleanUpOnError\"}],\"Parameters\":{\"FunctionName\":\"",
-          {},
-          "\",\"Payload.$\":\"$\"},\"Type\":\"Task\",\"Resource\":\"arn:",
-          {},
-          ":states:::lambda:invoke\",\"ResultPath\":\"$.powerValues\"},\"cleanup $.powerValues\":{\"Type\":\"Pass\",\"ResultPath\":\"$.powerValues\",\"InputPath\":\"$.powerValues.Payload\",\"Next\":\"Branching\"},\"Branching\":{\"Type\":\"Map\",\"ResultPath\":\"$.stats\",\"Next\":\"cleanup $.stats array\",\"Parameters\":{\"value.$\":\"$$.Map.Item.Value\",\"lambdaARN.$\":\"$.lambdaARN\",\"num.$\":\"$.num\",\"payload.$\":\"$.payload\",\"parallelInvocation.$\":\"$.parallelInvocation\"},\"Catch\":[{\"ErrorEquals\":[\"States.ALL\"],\"ResultPath\":\"$.error\",\"Next\":\"CleanUpOnError\"}],\"Iterator\":{\"StartAt\":\"Iterator\",\"States\":{\"Iterator\":{\"End\":true,\"Retry\":[{\"ErrorEquals\":[\"States.ALL\"],\"IntervalSeconds\":3,\"MaxAttempts\":2}],\"Parameters\":{\"FunctionName\":\"",
-          {},
-          "\",\"Payload.$\":\"$\"},\"Type\":\"Task\",\"Resource\":\"arn:",
-          {},
-          ":states:::lambda:invoke\"}}},\"ItemsPath\":\"$.powerValues\",\"MaxConcurrency\":0},\"cleanup $.stats array\":{\"Type\":\"Pass\",\"ResultPath\":\"$.stats\",\"InputPath\":\"$.stats[*].Payload\",\"Next\":\"Cleaner\"},\"Cleaner\":{\"Next\":\"Analyzer\",\"Parameters\":{\"FunctionName\":\"",
-          {},
-          "\",\"Payload.$\":\"$\"},\"Type\":\"Task\",\"Resource\":\"arn:",
-          {},
-          ":states:::lambda:invoke\",\"ResultPath\":\"$.cleaner\"},\"Analyzer\":{\"Next\":\"cleanup $.analysis\",\"Parameters\":{\"FunctionName\":\"",
-          {},
-          "\",\"Payload.$\":\"$\"},\"Type\":\"Task\",\"Resource\":\"arn:",
-          {},
-          ":states:::lambda:invoke\",\"ResultPath\":\"$.analysis\"},\"cleanup $.analysis\":{\"Type\":\"Pass\",\"ResultPath\":\"$.analysis\",\"InputPath\":\"$.analysis.Payload\",\"Next\":\"Optimizer\"},\"Optimizer\":{\"End\":true,\"Parameters\":{\"FunctionName\":\"",
-          {},
-          "\",\"Payload.$\":\"$\"},\"OutputPath\":\"$.analysis\",\"Type\":\"Task\",\"Resource\":\"arn:",
-          {},
-          ":states:::lambda:invoke\",\"ResultPath\":\"$.optimizer\"},\"CleanUpOnError\":{\"End\":true,\"Parameters\":{\"FunctionName\":\"",
-          {},
-          "\",\"Payload.$\":\"$\"},\"Type\":\"Task\",\"Resource\":\"arn:",
-          {},
-          ":states:::lambda:invoke\"}}}"
+      "DefinitionString": {
+        "Fn::Join": [
+          "",
+          [
+            "{\"StartAt\":\"Initializer\",\"States\":{\"Initializer\":{\"Next\":\"cleanup $.powerValues\",\"Catch\":[{\"ErrorEquals\":[\"States.ALL\"],\"ResultPath\":\"$.error\",\"Next\":\"CleanUpOnError\"}],\"Parameters\":{\"FunctionName\":\"",
+            {
+              "Ref": "powerTunerinitializerE42CBB83"
+            },
+            "\",\"Payload.$\":\"$\"},\"Type\":\"Task\",\"Resource\":\"arn:",
+            {
+              "Ref": "AWS::Partition"
+            },
+            ":states:::lambda:invoke\",\"ResultPath\":\"$.powerValues\"},\"cleanup $.powerValues\":{\"Type\":\"Pass\",\"ResultPath\":\"$.powerValues\",\"InputPath\":\"$.powerValues.Payload\",\"Next\":\"Branching\"},\"Branching\":{\"Type\":\"Map\",\"ResultPath\":\"$.stats\",\"Next\":\"cleanup $.stats array\",\"Parameters\":{\"value.$\":\"$$.Map.Item.Value\",\"lambdaARN.$\":\"$.lambdaARN\",\"num.$\":\"$.num\",\"input.$\":\"$\",\"payload.$\":\"$.payload\",\"parallelInvocation.$\":\"$.parallelInvocation\"},\"Catch\":[{\"ErrorEquals\":[\"States.ALL\"],\"ResultPath\":\"$.error\",\"Next\":\"CleanUpOnError\"}],\"Iterator\":{\"StartAt\":\"Iterator\",\"States\":{\"Iterator\":{\"End\":true,\"Retry\":[{\"ErrorEquals\":[\"States.ALL\"],\"IntervalSeconds\":3,\"MaxAttempts\":2}],\"Parameters\":{\"FunctionName\":\"",
+            {
+              "Ref": "powerTunerexecutorFAA55CAC"
+            },
+            "\",\"Payload.$\":\"$\"},\"Type\":\"Task\",\"Resource\":\"arn:",
+            {
+              "Ref": "AWS::Partition"
+            },
+            ":states:::lambda:invoke\"}}},\"ItemsPath\":\"$.powerValues\",\"MaxConcurrency\":0},\"cleanup $.stats array\":{\"Type\":\"Pass\",\"ResultPath\":\"$.stats\",\"InputPath\":\"$.stats[*].Payload\",\"Next\":\"Cleaner\"},\"Cleaner\":{\"Next\":\"Analyzer\",\"Parameters\":{\"FunctionName\":\"",
+            {
+              "Ref": "powerTunercleanerAB51CBF0"
+            },
+            "\",\"Payload.$\":\"$\"},\"Type\":\"Task\",\"Resource\":\"arn:",
+            {
+              "Ref": "AWS::Partition"
+            },
+            ":states:::lambda:invoke\",\"ResultPath\":\"$.cleaner\"},\"Analyzer\":{\"Next\":\"cleanup $.analysis\",\"Parameters\":{\"FunctionName\":\"",
+            {
+              "Ref": "powerTuneranalyzerDBE209DF"
+            },
+            "\",\"Payload.$\":\"$\"},\"Type\":\"Task\",\"Resource\":\"arn:",
+            {
+              "Ref": "AWS::Partition"
+            },
+            ":states:::lambda:invoke\",\"ResultPath\":\"$.analysis\"},\"cleanup $.analysis\":{\"Type\":\"Pass\",\"ResultPath\":\"$.analysis\",\"InputPath\":\"$.analysis.Payload\",\"Next\":\"Optimizer\"},\"Optimizer\":{\"End\":true,\"Parameters\":{\"FunctionName\":\"",
+            {
+              "Ref": "powerTuneroptimizer8E2EECDF"
+            },
+            "\",\"Payload.$\":\"$\"},\"OutputPath\":\"$.analysis\",\"Type\":\"Task\",\"Resource\":\"arn:",
+            {
+              "Ref": "AWS::Partition"
+            },
+            ":states:::lambda:invoke\",\"ResultPath\":\"$.optimizer\"},\"CleanUpOnError\":{\"End\":true,\"Parameters\":{\"FunctionName\":\"",
+            {
+              "Ref": "powerTunercleanerAB51CBF0"
+            },
+            "\",\"Payload.$\":\"$\"},\"Type\":\"Task\",\"Resource\":\"arn:",
+            {
+              "Ref": "AWS::Partition"
+            },
+            ":states:::lambda:invoke\"}}}"
         ]
       ]
     }
@@ -183,7 +212,7 @@ test('State Machine Arn Export Output Not Enabled', () => {
     lambdaResource: 'arn:1234:1234:1234:1234:1234',
   });
 
-  // THEN  
+  // THEN
   expectCDK(stack).notTo(haveOutput({
     exportName: exportName
   }));
@@ -200,7 +229,7 @@ test('State Machine Arn Export Output Enabled With No Name', () => {
     exportStepFunction: true
   });
 
-  // THEN  
+  // THEN
   expectCDK(stack).notTo(haveOutput({
     exportName: exportName
   }));
@@ -218,7 +247,7 @@ test('State Machine Arn Export Output Enabled With No Name', () => {
     exportedStepFunctionName: exportName
   });
 
-  // THEN  
+  // THEN
   expectCDK(stack).to(haveOutput({
     exportName: exportName
   }));

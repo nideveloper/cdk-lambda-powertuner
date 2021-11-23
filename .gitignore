@@ -10,3 +10,8 @@ cdk.out
 # Parcel build directories
 .cache
 .build
+
+.idea
+/powertuner_clone/
+
+.DS_Store
