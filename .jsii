@@ -1238,7 +1238,7 @@
           },
           "locationInModule": {
             "filename": "lib/cdk-lambda-powertuner/cdk-lambda-powertuner-construct.ts",
-            "line": 202
+            "line": 206
           },
           "name": "createLambda",
           "parameters": [
@@ -1416,6 +1416,6 @@
       ]
     }
   },
-  "version": "0.2.2",
-  "fingerprint": "eqQT4S84NqDCshpTtzoHEsBhv1bmjanS3oXr/arh0dc="
+  "version": "0.2.3",
+  "fingerprint": "TFJLoSrmELsO2F002gQFmBn30ELbCSaRmFB/r08THJ8="
 }
